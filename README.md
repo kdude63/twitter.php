@@ -5,39 +5,8 @@ Originally written for twitter api 1 from http://mitgux.com/get-your-latest-twee
 Modified by http://pure-essence.net for twitter API 1.1 by using lib codebird https://github.com/mynetx/codebird-php
 
 ### For a step by step tutorial on how to use this
+
 Visit http://pure-essence.net/2013/06/19/twitter-api-1-1-php-get-tweets-script
-
-Upload all files from src to your a folder on your server
-Update getTweets.php with variables cache variables
-Call getTweets.php?user={screenname}&count={tweets} to get a json array of the twitter timeline.
-Handle the json using an ajax call like this (this jQuery):
-
-```
-// get latest tweet
-$.ajax({
-	url: "{PATH TO}/getTweets.php",
-	type: "GET",
-	data: { count : '2', user : 'dodozhang21' },
-	success: function(data, textStatus, jqXHR){
-		var html = '<ul>';
-		for(var x in data) {
-			var tweet = data[x];
-			//console.log(tweet);
-			html += '<li>';
-			html += tweet.text;
-			html += '<span>';
-			html += tweet.created_at;
-			html += '</span></li>';
-		}
-		html += '</ul>';
-		$('#latestTweet').removeClass('loading');
-		$('#latestTweet').html(html);
-	},
-	error: function (jqXHR, textStatus, errorThrown){
-		//console.log('Error ' + jqXHR);
-	}
-});
-```
 
 
 ### codebird-php
