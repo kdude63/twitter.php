@@ -3,7 +3,7 @@
 // modified by http://pure-essence.net for twitter API 1.1 by using lib codebird https://github.com/mynetx/codebird-php
 
 require_once ('codebird.php');
-\Codebird\Codebird::setConsumerKey('', ''); // static, see 'Using multiple Codebird instances'
+\Codebird\Codebird::setConsumerKey('CONSUMER_KEY', 'CONSUMER_SECRET'); // static, see 'Using multiple Codebird instances'
 
 // Define the main class
 class Get_Tweets {
@@ -26,7 +26,7 @@ class Get_Tweets {
 		$this->count = $count;
 		$this->user = $user;
 		$this->cb = \Codebird\Codebird::getInstance();
-		$this->cb->setToken('', '');
+		$this->cb->setToken('ACCESS_TOKEN', 'ACCESS_TOKEN_SECRET');
 	}
 
 	// Get the data from the URL
