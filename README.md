@@ -1,14 +1,13 @@
-### getTweets.php (extension to codebird-php)
+## twitter.class.php (extension to codebird-php)
 
-Originally written for twitter api 1 from http://mitgux.com/get-your-latest-tweets-with-php-and-cache-them
+For getting the last _n_ tweets from a specific user's timeline.  
+Requires `php5-curl` to work.  
 
-Modified by http://pure-essence.net for twitter API 1.1 by using lib codebird https://github.com/mynetx/codebird-php
+#### Usage:
 
-### For a step by step tutorial on how to use this
+Insert your application's 'consumer key' and 'consumer secret' and send a request to the file with `user` and `count`.
 
-Visit http://pure-essence.net/2013/06/19/twitter-api-1-1-php-get-tweets-script
+E.g - `https://www.my-server.com/twitter.php?count=1&user=kdude63` will return my most recent tweet.
 
-
-### codebird-php
-
-For more information on codebird, visit https://github.com/mynetx/codebird-php
+    
+For more information on codebird, see https://github.com/mynetx/codebird-php
