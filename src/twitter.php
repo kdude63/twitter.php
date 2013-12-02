@@ -1,13 +1,13 @@
 <?php 
 // originally written for twitter api 1 from http://mitgux.com/get-your-latest-tweets-with-php-and-cache-them
 // modified by http://pure-essence.net for twitter API 1.1 by using lib codebird https://github.com/mynetx/codebird-php
-// further modified by kdude63 to allow app-only requests without user token
+// further modified by kdude63 to allow app-only requests without user token https://github.com/kdude63/twitter.php
 
 require_once ('twitter/codebird.php');
 \Codebird\Codebird::setConsumerKey('CONSUMER_KEY', 'CONSUMER_SECRET'); // static, see 'Using multiple Codebird instances'
 
 class Get_Tweets {
-	// Time between cache (Unit is second)
+	// Time between cache (unit is second)
 	private $max_age = 120; // 5 minutes
 
 	private $bearer_token;
