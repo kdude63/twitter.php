@@ -9,5 +9,13 @@ Insert your application's `consumer key` and `consumer secret` and send a reques
 
 E.g - `https://www.my-server.com/twitter.php?count=1&user=kdude63` will return the most recent tweet from user 'kdude63'.
 
+You can also call it internally by doing something like this:
+
+    	require_once ('twitter.php');
+    	$data = new get_tweets(1, kdude63, CONSUMER_KEY, CONSUMER_SECRET)->data(true);
+    	echo $data[0]['text'];
+    	// `data(true)` returns JSON, and `data(false)` returns an stdClass array.
+
+This will return [kdude63](https://twitter.com/kdude63)'s latest tweet, and echo it onto the page.
     
 For more information on codebird, see https://github.com/mynetx/codebird-php
