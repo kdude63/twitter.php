@@ -3,7 +3,7 @@
 For getting the last _n_ tweets from a specific user's timeline.  
 (Now automagically parses newlines _and_ URLs!)
 
-### Dependencies:
+#### Dependencies:
 
 Only requires `php5-curl` to work.
 
