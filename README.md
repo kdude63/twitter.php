@@ -23,16 +23,12 @@ You can also call it internally by doing something like this:
     	
 This will also return [kdude63](https://twitter.com/kdude63)'s latest tweet, and echo it onto the page.
 
-`data()` accepts two booleans as options:
-* The first one determines whether or not a JSON object is returned instead of an stdClass array. This is true by default.  
-* The second one determines whether or not the tweets(s) are parsed for URLs, and newlines and the timestamp converted into a an easier-to-read relative time instead of absolute time. This is also true by default.
+`data()` or `data(true)` will return tweet data that is ready to be displayed on a page as HTML... 
 
-E.g - `data()` or `data(true)` will return tweet data that is ready to be displayed on a page as HTML... 
-
-![This is on one line,<br /> and this is on another!<br /> And this is a link! <a target="_blank" href="https://t.co/jZ5igXzcfk">https://t.co/jZ5igXzcfk</a>](http://i.imgur.com/WEg1aqt.png)
+![Just testing...<br>some stuff...<br>With a link: <a href="https://t.co/jZ5igXzcfk" target="_blank">https://t.co/jZ5igXzcfk</a>](http://i.imgur.com/WEg1aqt.png "Just testing...<br>some stuff...<br>With a link: <a href="https://t.co/jZ5igXzcfk" target="_blank">https://t.co/jZ5igXzcfk</a>")
 
 While `data(false)` will return the raw data without doing anything to it.
 
-![This is on one line.\n and this is on another!\n And this is a link! https://t.co/jZ5igXzcfk](http://i.imgur.com/BdkzXVi.png)
+![Just testing...\nsome stuff...\nWith a link: https://t.co/jZ5igXzcfk](http://i.imgur.com/BdkzXVi.png "Just testing...\nsome stuff...\nWith a link: https://t.co/jZ5igXzcfk")
     
 For more information on codebird, see https://github.com/mynetx/codebird-php
