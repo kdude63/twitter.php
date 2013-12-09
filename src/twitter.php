@@ -116,7 +116,7 @@ class get_tweets {
 		return $ts;
 	}
 
-	public function data($returnRaw = true) {
+	public function data($returnRaw = true, $processTweets = true) {
 		if ($this->time_difference() < $this->max_age) {
 			$tweets = $this->read_cache();
 		} else {
@@ -125,13 +125,17 @@ class get_tweets {
 				// If false, request limit has been reached so read from cache.
 				$tweets = $this->read_cache();
 			} else {
-				if(!empty($tweets)) {
+				if(!empty($tweets) && $processTweets) {
 					$processedTweets = array();
 					foreach ($tweets as $tweet) {
 						if(is_object($tweet)) {
+							// Turns newlines into <br> tags
 							$tweet->text = nl2br($tweet->text);
+							// Turns URLs into links
 							$tweet->text = preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $tweet->text);
+							// Turns the timestamp into relative time (eg "about an hour ago")
 							$tweet->created_at = $this->timeago($tweet->created_at);
+
 							$processedTweets[] = $tweet;
 						}
 					}
