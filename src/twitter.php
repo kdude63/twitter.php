@@ -1,36 +1,39 @@
-<?php 
+<?php
 // originally written for twitter api 1 from http://mitgux.com/get-your-latest-tweets-with-php-and-cache-them
 // modified by http://pure-essence.net for twitter API 1.1 by using lib codebird https://github.com/mynetx/codebird-php
 // further modified by kdude63 to allow app-only requests without user token https://github.com/kdude63/twitter.php
 
 require_once ('twitter/codebird.php');
-\Codebird\Codebird::setConsumerKey('CONSUMER_KEY', 'CONSUMER_SECRET'); // static, see 'Using multiple Codebird instances'
+function set_keys($ckey, $csecret) {
+	\Codebird\Codebird::setConsumerKey($ckey, $csecret) ; // static, see 'Using multiple Codebird instances'
+}
 
-class Get_Tweets {
-	// Time between cache (unit is second)
-	private $max_age = 120; // 5 minutes
-
-	private $bearer_token;
-	// The max number of tweets
-	private $count;
-	// Trim the user informations from the data
-	private $trim_user = true;
-	// Twitter username
+class get_tweets {
+	// How old can the cache be before we refresh it?
+	private $max_age = 120;
+	// Who do we retrieve the tweets from?
 	private $user;
+	// How many do we retrieve?
+	private $count;
+	// Trim the user's information from the data?
+	private $trim_user = true;
+
 	private $cb;
+	private $bearer_token;
 
+	public function __construct($count = 1, $user = 'kdude63', $ckey, $csecret) {
 
-	public function __construct($count, $user = 'kdude63') {
 		// We make a default username in case the username is not set.
 		$this->count = $count;
 		$this->user = $user;
 		$this->cb = \Codebird\Codebird::getInstance();
+		set_keys($ckey, $csecret);
 
 		// Check if token exists already.
 		if (!file_exists('twitter/cache/oauth-token.txt')) {
 			// If not, request a new one
 			$reply = $this->cb->oauth2_token();
-			$bearer_token = $reply->access_token;
+			$this->bearer_token = $reply->access_token;
 			// and save it.
 			$handle = fopen('twitter/cache/oauth-token.txt', 'w');
 			fwrite($handle, $this->bearer_token);
@@ -39,7 +42,12 @@ class Get_Tweets {
 
 		$this->bearer_token = file_get_contents('twitter/cache/oauth-token.txt');
 		\Codebird\Codebird::setBearerToken($this->bearer_token);
-		echo $this->bearer_token;
+	}
+
+	// Read tweet(s) from cache.
+	private function read_cache() {
+		$tweets = json_decode(file_get_contents('twitter/cache/tweets.json'));
+		return $tweets;
 	}
 
 	// Save tweet and current time to cache.
@@ -52,13 +60,8 @@ class Get_Tweets {
 		fclose($handle);
 	}
 
-	// Read tweet(s) from cache.
-	private function read_cache() {
-		$tweets = json_decode(file_get_contents('twitter/cache/tweets.json'));
-		return $tweets;
-	}
-
-	private function fetch_url() {
+	// Fetch data from Twitter servers.
+	private function fetch_data() {
 		$params = array(
 			'screen_name' => $this->user,
 			'count' => $this->count,
@@ -117,7 +120,7 @@ class Get_Tweets {
 		if ($this->time_difference() < $this->max_age) {
 			$tweets = $this->read_cache();
 		} else {
-			$tweets = $this->fetch_url();
+			$tweets = $this->fetch_data();
 			if ($tweets == false) {
 				// If false, request limit has been reached so read from cache.
 				$tweets = $this->read_cache();
@@ -126,6 +129,7 @@ class Get_Tweets {
 					$processedTweets = array();
 					foreach ($tweets as $tweet) {
 						if(is_object($tweet)) {
+							$tweet->text = nl2br($tweet->text);
 							$tweet->text = preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $tweet->text);
 							$tweet->created_at = $this->timeago($tweet->created_at);
 							$processedTweets[] = $tweet;
@@ -144,16 +148,19 @@ class Get_Tweets {
 			return $tweets;
 		}
 	}
-
 }
 
 // Create a new instance
 $count = isset($_GET['count']) ? $_GET['count'] : 4;
 $user = isset($_GET['user']) ? $_GET['user'] : 'kdude63';
-$get_tweets = new Get_Tweets($count, $user);
+
+$ckey = 'YOUR CONSUMER KEY HERE';
+$csecret = 'YOUR CONSUMER SECRET HERE';
+
+$get_tweets = new get_tweets($count, $user, $ckey, $csecret);
 
 // Get data
-$tweets = $get_tweets->data();
+$tweets = $get_tweets->data(true);
 header('Content-Type: application/json');
 echo($tweets);
 
