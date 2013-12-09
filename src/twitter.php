@@ -116,7 +116,7 @@ class get_tweets {
 		return $ts;
 	}
 
-	public function data($returnJson = true, $processTweets = true) {
+	public function data($processTweets = true) {
 		if ($this->time_difference() < $this->max_age) {
 			$tweets = $this->read_cache();
 		} else {
@@ -145,12 +145,7 @@ class get_tweets {
 				$this->save_cache($tweets);
 			}
 		}
-
-		if($returnJson) {
-			return json_encode($tweets);
-		} else {
-			return $tweets;
-		}
+		return json_encode($tweets);
 	}
 }
 
@@ -164,7 +159,7 @@ $csecret = 'YOUR CONSUMER SECRET HERE';
 $get_tweets = new get_tweets($count, $user, $ckey, $csecret);
 
 // Get data
-$tweets = $get_tweets->data(true, true);
+$tweets = $get_tweets->data(true);
 header('Content-Type: application/json');
 echo($tweets);
 
