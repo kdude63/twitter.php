@@ -1,7 +1,7 @@
 ## twitter.php (extension to codebird-php)
 
 For getting the last _n_ tweets from a specific user's timeline.  
-(Now can automagically parse newlines and URLs!)
+<sup><sub>(Can now automagically parse newlines and URLs!)</sub></sup>
 
 #### Dependencies:
 
@@ -27,7 +27,12 @@ This will also return [kdude63](https://twitter.com/kdude63)'s latest tweet, and
 * The first one determines whether or not a JSON object is returned instead of an stdClass array. This is true by default.  
 * The second one determines whether or not the tweets(s) are parsed for URLs, and newlines and the timestamp converted into a an easier-to-read relative time instead of absolute time. This is also true by default.
 
-E.g - `data(true, true)` will return a JSON object, with tweet data that is ready to be displayed on a page as HTML.  
-While `data(false, false)` would return the raw data without doing anything to it.
+E.g - `data()` or `data(true)` will return tweet data that is ready to be displayed on a page as HTML... 
+
+![This is on one line,<br /> and this is on another!<br /> And this is a link! <a target="_blank" href="https://t.co/jZ5igXzcfk">https://t.co/jZ5igXzcfk</a>](http://i.imgur.com/WEg1aqt.png)
+
+While `data(false)` will return the raw data without doing anything to it.
+
+![This is on one line.\n and this is on another!\n And this is a link! https://t.co/jZ5igXzcfk](http://i.imgur.com/BdkzXVi.png)
     
 For more information on codebird, see https://github.com/mynetx/codebird-php
