@@ -23,7 +23,8 @@ You can also call it internally by doing something like this:
     	
 This will also return [kdude63](https://twitter.com/kdude63)'s latest tweet, and echo it onto the page.
 
-`data()` or `data(true)` will return tweet data that is ready to be displayed on a page as HTML... 
+`data()` or `data(true)` will return tweet data that is ready to be displayed on a page as HTML...  
+I.e - Turns URLs into links, newlines into line breaks, and makes the timestamp relative instead of absolute.
 
 ![Just testing...<br>some stuff...<br>With a link: <a href="https://t.co/jZ5igXzcfk" target="_blank">https://t.co/jZ5igXzcfk</a>](http://i.imgur.com/WEg1aqt.png "Just testing...<br>some stuff...<br>With a link: <a href="https://t.co/jZ5igXzcfk" target="_blank">https://t.co/jZ5igXzcfk</a>")
 
