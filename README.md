@@ -15,11 +15,13 @@ E.g - `https://www.my-server.com/twitter.php?count=1&user=kdude63` will return t
 
 You can also call it internally by doing something like this:
 
-    	require_once ('twitter.php'); 
-    	// This code needs to be in the same directory as the 'twitter' folder!
-    	
-    	$data = new get_tweets(1, kdude63, CONSUMER_KEY, CONSUMER_SECRET)->data();
-    	echo $data[0]['text'];
+```php
+require_once ('twitter.php'); 
+// This code needs to be in the same directory as the 'twitter' folder!
+
+$data = new get_tweets(1, 'kdude63', 'CONSUMER_KEY', 'CONSUMER_SECRET')->data();
+echo $data[0]['text'];
+```
     	
 This will also return [kdude63](https://twitter.com/kdude63)'s latest tweet, and echo it onto the page.
 
