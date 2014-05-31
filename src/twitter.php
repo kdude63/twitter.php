@@ -3,7 +3,7 @@
 // modified by http://pure-essence.net for twitter API 1.1 by using lib codebird https://github.com/mynetx/codebird-php
 // further modified by kdude63 to allow app-only requests without user token https://github.com/kdude63/twitter.php
 
-require_once ('twitter/codebird.php');
+require_once (__DIR__.'/twitter/codebird.php');
 function set_keys($ckey, $csecret) {
 	\Codebird\Codebird::setConsumerKey($ckey, $csecret) ; // static, see 'Using multiple Codebird instances'
 }
@@ -30,32 +30,32 @@ class get_tweets {
 		set_keys($ckey, $csecret);
 
 		// Check if token exists already.
-		if (!file_exists('twitter/cache/oauth-token.txt')) {
+		if (!file_exists(__DIR__.'/twitter/cache/oauth-token.txt')) {
 			// If not, request a new one
 			$reply = $this->cb->oauth2_token();
 			$this->bearer_token = $reply->access_token;
 			// and save it.
-			$handle = fopen('twitter/cache/oauth-token.txt', 'w');
+			$handle = fopen(__DIR__.'/twitter/cache/oauth-token.txt', 'w');
 			fwrite($handle, $this->bearer_token);
 			fclose($handle);
 		}
 
-		$this->bearer_token = file_get_contents('twitter/cache/oauth-token.txt');
+		$this->bearer_token = file_get_contents(__DIR__.'/twitter/cache/oauth-token.txt');
 		\Codebird\Codebird::setBearerToken($this->bearer_token);
 	}
 
 	// Read tweet(s) from cache.
 	private function read_cache() {
-		$tweets = json_decode(file_get_contents('twitter/cache/tweets.json'));
+		$tweets = json_decode(file_get_contents(__DIR__.'/twitter/cache/tweets.json'));
 		return $tweets;
 	}
 
 	// Save tweet and current time to cache.
 	private function save_cache($data) {
-		$handle = fopen('twitter/cache/tweets.json', 'w');
+		$handle = fopen(__DIR__.'/twitter/cache/tweets.json', 'w');
 		fwrite($handle, json_encode($data));
 		fclose($handle);
-		$handle = fopen('twitter/cache/last-cache-time.txt', 'w');
+		$handle = fopen(__DIR__.'/twitter/cache/last-cache-time.txt', 'w');
 		fwrite($handle, date('c'));
 		fclose($handle);
 	}
@@ -77,12 +77,12 @@ class get_tweets {
 
 	// Get difference in seconds from last cache and now.
 	private function time_difference(){
-		if (!file_exists('twitter/cache/last-cache-time.txt')) {
-			$handle = fopen('twitter/cache/last-cache-time.txt', 'w');
+		if (!file_exists(__DIR__.'/twitter/cache/last-cache-time.txt')) {
+			$handle = fopen(__DIR__.'/twitter/cache/last-cache-time.txt', 'w');
 			fwrite($handle, '2000-01-01T12:12:12+00:00');
 			fclose($handle); 
 		}
-		$prevDate = file_get_contents('twitter/cache/last-cache-time.txt');
+		$prevDate = file_get_contents(__DIR__.'/twitter/cache/last-cache-time.txt');
 		$dateOne = new DateTime($prevDate);
 		$dateTwo = new DateTime(date('c'));
 		$diff = $dateTwo->format('U') - $dateOne->format('U');
@@ -148,19 +148,5 @@ class get_tweets {
 		return json_encode($tweets);
 	}
 }
-
-// Create a new instance
-$count = isset($_GET['count']) ? $_GET['count'] : 4;
-$user = isset($_GET['user']) ? $_GET['user'] : 'kdude63';
-
-$ckey = 'YOUR CONSUMER KEY HERE';
-$csecret = 'YOUR CONSUMER SECRET HERE';
-
-$get_tweets = new get_tweets($count, $user, $ckey, $csecret);
-
-// Get data
-$tweets = $get_tweets->data(true);
-header('Content-Type: application/json');
-echo($tweets);
 
 ?>

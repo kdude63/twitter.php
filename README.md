@@ -9,12 +9,6 @@ Only requires `php5-curl` to work.
 
 #### Usage:
 
-Insert your application's `consumer key` and `consumer secret` and send a request to the file with `user` and `count` in the URI.
-
-E.g - `https://www.my-server.com/twitter.php?count=1&user=kdude63` will return the most recent tweet from user 'kdude63'.
-
-You can also call it internally by doing something like this:
-
 ```php
 require_once ('twitter.php'); 
 // This code needs to be in the same directory as the 'twitter' folder!
