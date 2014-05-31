@@ -5,7 +5,7 @@ For getting the last _n_ tweets from a specific user's timeline.
 
 #### Dependencies:
 
-Only requires `php5-curl` to work.
+Requires `php5-curl` and a valid Twitter application API key.
 
 #### Usage:
 
@@ -17,7 +17,7 @@ $data = new get_tweets(1, 'kdude63', 'CONSUMER_KEY', 'CONSUMER_SECRET')->data();
 echo $data[0]['text'];
 ```
     	
-This will also return [kdude63](https://twitter.com/kdude63)'s latest tweet, and echo it onto the page.
+This will return [kdude63](https://twitter.com/kdude63)'s latest tweet, and echo it onto the page.
 
 `data()` or `data(true)` will return tweet data that is ready to be displayed on a page as HTML...  
 I.e - Turns URLs into links, newlines into line breaks, and makes the timestamp relative instead of absolute.
