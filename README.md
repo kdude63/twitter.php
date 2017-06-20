@@ -22,13 +22,13 @@ This will return [kdude63](https://twitter.com/kdude63)'s latest tweet, and echo
 `data()` or `data(true)` will return tweet data that is ready to be displayed on a page as HTML...  
 I.e - Turns URLs into links, newlines into line breaks, and makes the timestamp relative instead of absolute.
 
-![Just testing...<br>some stuff...<br>With a link: <a href="https://t.co/jZ5igXzcfk" target="_blank">https://t.co/jZ5igXzcfk</a>](http://i.imgur.com/WEg1aqt.png "Just testing...<br>some stuff...<br>With a link: <a href="https://t.co/jZ5igXzcfk" target="_blank">https://t.co/jZ5igXzcfk</a>")
+![](http://i.imgur.com/WEg1aqt.png "Just testing...<br>some stuff...<br>With a link: <a href='https://t.co/jZ5igXzcfk' target='_blank'>https://t.co/jZ5igXzcfk</a>")
 
     Just testing...<br>some stuff...<br>With a link: <a href="https://t.co/jZ5igXzcfk" target="_blank">https://t.co/jZ5igXzcfk</a>
 
 While `data(false)` will return the raw data without doing anything to it.
 
-![Just testing...\nsome stuff...\nWith a link: https://t.co/jZ5igXzcfk](http://i.imgur.com/BdkzXVi.png "Just testing...\nsome stuff...\nWith a link: https://t.co/jZ5igXzcfk")
+![](http://i.imgur.com/BdkzXVi.png "Just testing...\nsome stuff...\nWith a link: https://t.co/jZ5igXzcfk")
 
     Just testing...\nsome stuff...\nWith a link: https://t.co/jZ5igXzcfk
     
